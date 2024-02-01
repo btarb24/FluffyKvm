@@ -66,6 +66,10 @@ namespace MouseKeyboardLibrary
       var count = (uint)inputsArr.Length;
       var size = Marshal.SizeOf(typeof(INPUT));
       User32.SendInput(count, inputsArr, size);
+
+      //hack to try to stop occassional missed ctrlUp when copying things
+      if (key == ScanCodeShort.LCONTROL && state == KeySendState.Up)
+        User32.SendInput(count, inputsArr, size);
     }
 
     private static INPUT BuildInput(ScanCodeShort key, bool isKeyUp)
