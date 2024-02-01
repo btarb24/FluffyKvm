@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.1831
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluffyKVMServer", "FluffyKVMServer\FluffyKVMServer.csproj", "{0349485B-26F7-451B-BC53-C8854A92C731}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MouseKeyboardLibrary", "MouseKeyboardLibrary\MouseKeyboardLibrary\MouseKeyboardLibrary.csproj", "{F419622F-4D82-40A6-B4FB-3FE36579F018}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluffyKVMClient", "FluffyKVMClient\FluffyKVMClient.csproj", "{44A69F0E-B078-403D-BFAD-71BE7CCF0554}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluffyKVM", "FluffyKVM\FluffyKVM.csproj", "{FC4726E6-1330-494C-B028-5EE2D846AB69}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0349485B-26F7-451B-BC53-C8854A92C731}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0349485B-26F7-451B-BC53-C8854A92C731}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0349485B-26F7-451B-BC53-C8854A92C731}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0349485B-26F7-451B-BC53-C8854A92C731}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F419622F-4D82-40A6-B4FB-3FE36579F018}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F419622F-4D82-40A6-B4FB-3FE36579F018}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F419622F-4D82-40A6-B4FB-3FE36579F018}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F419622F-4D82-40A6-B4FB-3FE36579F018}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44A69F0E-B078-403D-BFAD-71BE7CCF0554}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44A69F0E-B078-403D-BFAD-71BE7CCF0554}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44A69F0E-B078-403D-BFAD-71BE7CCF0554}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44A69F0E-B078-403D-BFAD-71BE7CCF0554}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC4726E6-1330-494C-B028-5EE2D846AB69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC4726E6-1330-494C-B028-5EE2D846AB69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC4726E6-1330-494C-B028-5EE2D846AB69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC4726E6-1330-494C-B028-5EE2D846AB69}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {528968BA-8FE5-4368-BA42-55093B74BBD9}
+	EndGlobalSection
+EndGlobal
