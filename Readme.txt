@@ -1,0 +1,1 @@
+My USB null cable requires Prolific PL2303 driver
