@@ -130,11 +130,45 @@ namespace FluffyKVM
         }
 
         if (showMessage)
-          lstMessages.Items.Insert(0, args.Message);
+          lstMessages.Items.Insert(0, AdaptMessageActivityForDisplay(args));
 
-        if (lstMessages.Items.Count > 100)
-          lstMessages.Items.RemoveAt(100);
+        if (lstMessages.Items.Count > 30)
+          lstMessages.Items.RemoveAt(30);
       });
+    }
+
+    private string AdaptMessageActivityForDisplay(MessageActivityEventArgs args)
+    {
+      var action = "";
+      switch (args.MessageType)
+      {
+        case MessageType.General:
+          action = "gen";
+          break;
+        case MessageType.KeyDown:
+          action = "kDn";
+          break;
+        case MessageType.KeyUp:
+          action = "kUp";
+          break;
+        case MessageType.MouseMove:
+          action = "mMo";
+          break;
+        case MessageType.MouseDown:
+          action = "mDn";
+          break;
+        case MessageType.MouseUp:
+          action = "mUp";
+          break;
+        case MessageType.MouseWheel:
+          action = "mWh";
+          break;
+        case MessageType.LockKeySync:
+          action = "LockKeySync";
+          break;
+      }
+
+      return $"{action} {args.Message.Substring(2)}";
     }
 
     private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
