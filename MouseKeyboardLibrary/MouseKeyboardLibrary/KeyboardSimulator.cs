@@ -18,14 +18,15 @@ namespace MouseKeyboardLibrary
     public static void KeyDown(Keys key)
     {
       var scanCode = GetScanCode(key);
-      SendKeys(scanCode, KeySendState.Down);
+      var isExtendedKey = IsExtendedKey(key);
+      SendKeys(scanCode, KeySendState.Down, isExtendedKey);
     }
 
     public static void KeyUp(Keys key)
     {
       var scanCode = GetScanCode(key);
-
-      SendKeys(scanCode, KeySendState.Up);
+      var isExtendedKey = IsExtendedKey(key);
+      SendKeys(scanCode, KeySendState.Up, isExtendedKey);
     }
 
     public static void KeyPress(Keys key)
@@ -37,30 +38,30 @@ namespace MouseKeyboardLibrary
     public static void SetCapsLockAs(bool desiredState)
     {
       if (Control.IsKeyLocked(Keys.CapsLock) != desiredState)
-        SendKeys(ScanCodeShort.CAPITAL, KeySendState.DownAndUp);
+        SendKeys(ScanCodeShort.CAPITAL, KeySendState.DownAndUp, false);
     }
 
     public static void SetNumLockAs(bool desiredState)
     {
       if (Control.IsKeyLocked(Keys.NumLock) != desiredState)
-        SendKeys(ScanCodeShort.NUMLOCK, KeySendState.DownAndUp);
+        SendKeys(ScanCodeShort.NUMLOCK, KeySendState.DownAndUp, false);
     }
 
     public static void SetScrollLockAs(bool desiredState)
     {
       if (Control.IsKeyLocked(Keys.Scroll) != desiredState)
-        SendKeys(ScanCodeShort.SCROLL, KeySendState.DownAndUp);
+        SendKeys(ScanCodeShort.SCROLL, KeySendState.DownAndUp, false);
     }
 
-    private static void SendKeys(ScanCodeShort key, KeySendState state)
+    private static void SendKeys(ScanCodeShort key, KeySendState state, bool isExtendedKey)
     {
       var inputs = new List<INPUT>();
 
       if (state == KeySendState.Down || state == KeySendState.DownAndUp)
-        inputs.Add(BuildInput(key, false));
+        inputs.Add(BuildInput(key, false, isExtendedKey));
 
       if (state == KeySendState.Up || state == KeySendState.DownAndUp)
-        inputs.Add(BuildInput(key, true));
+        inputs.Add(BuildInput(key, true, isExtendedKey));
 
       var inputsArr = inputs.ToArray();
       var count = (uint)inputsArr.Length;
@@ -72,7 +73,7 @@ namespace MouseKeyboardLibrary
         User32.SendInput(count, inputsArr, size);
     }
 
-    private static INPUT BuildInput(ScanCodeShort key, bool isKeyUp)
+    private static INPUT BuildInput(ScanCodeShort key, bool isKeyUp, bool isExtendedKey)
     {
       var input = new INPUT();
       input.type = INPUT_TYPE.INPUT_KEYBOARD;
@@ -83,8 +84,36 @@ namespace MouseKeyboardLibrary
       input.U.ki.dwFlags = KEYEVENTF.SCANCODE;
       if (isKeyUp)
         input.U.ki.dwFlags |= KEYEVENTF.KEYUP;
+      if (isExtendedKey)
+        input.U.ki.dwFlags |= KEYEVENTF.EXTENDEDKEY;
 
       return input;
+    }
+
+    private static bool IsExtendedKey(Keys key)
+    {
+      switch (key)
+      {
+        case Keys.LWin:
+        case Keys.RWin:
+        case Keys.Left:
+        case Keys.Right:
+        case Keys.Up:
+        case Keys.Down:
+        case Keys.Home:
+        case Keys.End:
+        case Keys.PageUp:
+        case Keys.PageDown:
+        case Keys.Delete:
+        case Keys.Divide:
+        case Keys.Multiply:
+        case Keys.Add:
+        case Keys.Subtract:
+        case Keys.Enter:
+          return true;
+        default:
+          return false;
+      }
     }
 
     private static ScanCodeShort GetScanCode(Keys key)
