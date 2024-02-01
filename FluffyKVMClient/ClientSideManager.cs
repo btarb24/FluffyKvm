@@ -12,6 +12,11 @@ namespace FluffyKVMClient
     
     public event EventHandler<MessageActivityEventArgs> MessageActivity;
 
+    public ClientSideManager()
+    {
+      //     Microsoft.Win32.SystemEvents.SessionSwitch += SystemEvents_SessionSwitch;
+    }
+
     public void StartSerial(string port, int baudRate)
     {
       if (_listener != null)
@@ -57,9 +62,23 @@ namespace FluffyKVMClient
       MessageActivity?.Invoke(this, new MessageActivityEventArgs(MessageType.General, "*STOP*"));
     }
 
-    private void Listener_MessageReceived(object sender, string e)
+    private void SystemEvents_SessionSwitch(object sender, Microsoft.Win32.SessionSwitchEventArgs e)
     {
-      var split = e.Split('_');
+      Console.WriteLine(e.Reason);
+
+      if (e.Reason == Microsoft.Win32.SessionSwitchReason.SessionLock)
+      {
+        //  InputDirector.ToLockScreen();
+      }
+      else if (e.Reason == Microsoft.Win32.SessionSwitchReason.SessionUnlock)
+      {
+        InputDirector.ToUserSession();
+      }
+    }
+
+    private void Listener_MessageReceived(object sender, string rawMessage)
+    {
+      var split = rawMessage.Split('_');
       var messageType = (MessageType)Enum.Parse(typeof(MessageType), split[0]);
 
       switch (messageType)
@@ -128,7 +147,7 @@ namespace FluffyKVMClient
           break;
       }
 
-      MessageActivity?.Invoke(this, new MessageActivityEventArgs(messageType, e));
+      MessageActivity?.Invoke(this, new MessageActivityEventArgs(messageType, rawMessage));
     }
   }
 }

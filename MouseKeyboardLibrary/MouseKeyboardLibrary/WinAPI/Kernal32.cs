@@ -7,5 +7,8 @@ namespace MouseKeyboardLibrary.WinAPI
   {
     [DllImport("kernel32.dll")]
     public static extern IntPtr GetModuleHandle(string name);
+
+    [DllImport("kernel32.dll")]
+    public static extern uint GetCurrentThreadId();
   }
 }

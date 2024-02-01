@@ -5,7 +5,10 @@ namespace MouseKeyboardLibrary.WinAPI
 {
   public static class User32
   {
+
+    public delegate bool EnumWindowStationsDelegate(string windowsStation, IntPtr lParam);
     public delegate int HookProc(int nCode, int wParam, IntPtr lParam);
+    public delegate bool EnumDesktopsDelegate(string desktop, IntPtr lParam);
 
 
     [DllImport("user32.dll")]
@@ -40,5 +43,26 @@ namespace MouseKeyboardLibrary.WinAPI
 
     [DllImport("user32.dll")]
     public static extern uint MapVirtualKey(uint uCode, MapVirtualKeyType uMapType);
+
+    [DllImport("user32.dll")]
+    public static extern bool EnumWindowStations(EnumWindowStationsDelegate lpEnumFunc, IntPtr lParam);
+
+    [DllImport("user32.dll")]
+    public static extern IntPtr GetProcessWindowStation();
+
+    [DllImport("user32.dll")]
+    public static extern bool EnumDesktops(IntPtr hwinsta, EnumDesktopsDelegate lpEnumFunc, IntPtr lParam);
+
+    [DllImport("user32.dll")]
+    public static extern IntPtr OpenDesktop(string lpszDesktop, uint dwFlags, bool fInherit, uint dwDesiredAccess);
+
+    [DllImport("user32.dll")]
+    public static extern IntPtr OpenInputDesktop(uint dwFlags, bool fInherit, uint dwDesiredAccess);
+
+    [DllImport("user32.dll")]
+    public static extern bool GetUserObjectInformation(IntPtr hObj, int nIndex, [Out] byte[] pvInfo, int nLength, out uint lpnLengthNeeded);
+
+    [DllImport("user32.dll")]
+    public static extern IntPtr GetThreadDesktop(uint dwThreadId);
   }
 }

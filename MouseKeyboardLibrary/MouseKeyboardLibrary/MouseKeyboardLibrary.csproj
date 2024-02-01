@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="GlobalHook.cs" />
     <Compile Include="HandleableMouseEventArgs.cs" />
+    <Compile Include="InputDirector.cs" />
     <Compile Include="KeyboardHook.cs" />
     <Compile Include="KeyboardSimulator.cs" />
     <Compile Include="MouseHook.cs" />
