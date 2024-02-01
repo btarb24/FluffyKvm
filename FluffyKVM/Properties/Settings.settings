@@ -17,10 +17,10 @@
     <Setting Name="destinationPort" Type="System.String" Scope="User">
       <Value Profile="(Default)">15977</Value>
     </Setting>
-    <Setting Name="showKeyboardMessages" Type="System.String" Scope="User">
+    <Setting Name="showKeyboardMessages" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
-    <Setting Name="showMouseMessages" Type="System.String" Scope="User">
+    <Setting Name="showMouseMessages" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="baudRate" Type="System.String" Scope="User">

@@ -86,9 +86,9 @@ namespace FluffyKVM.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public string showKeyboardMessages {
+        public bool showKeyboardMessages {
             get {
-                return ((string)(this["showKeyboardMessages"]));
+                return ((bool)(this["showKeyboardMessages"]));
             }
             set {
                 this["showKeyboardMessages"] = value;
@@ -98,9 +98,9 @@ namespace FluffyKVM.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public string showMouseMessages {
+        public bool showMouseMessages {
             get {
-                return ((string)(this["showMouseMessages"]));
+                return ((bool)(this["showMouseMessages"]));
             }
             set {
                 this["showMouseMessages"] = value;

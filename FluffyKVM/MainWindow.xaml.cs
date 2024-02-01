@@ -248,8 +248,8 @@ namespace FluffyKVM
         }
       }
 
-      chkShowKbMessages.IsChecked = Convert.ToBoolean(Properties.Settings.Default.showKeyboardMessages);
-      chkShowMouseMessages.IsChecked = Convert.ToBoolean(Properties.Settings.Default.showMouseMessages);
+      chkShowKbMessages.IsChecked = Properties.Settings.Default.showKeyboardMessages;
+      chkShowMouseMessages.IsChecked = Properties.Settings.Default.showMouseMessages;
       chkShowCount.IsChecked = Properties.Settings.Default.showCount;
 
       var serialPortStr = Properties.Settings.Default.serialPort;
