@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Configuration;
 using System.IO.Ports;
 using System.Linq;
 using System.Management;
@@ -11,7 +10,6 @@ namespace FluffyKVM
   public partial class MainWindow : Window
   {
     private IManager _manager;
-    private bool _showCount;
     private int _count;
 
     public event EventHandler<StartSerialEventArgs> StartSerialRequested;
@@ -102,7 +100,7 @@ namespace FluffyKVM
       _manager = null;
     }
 
-    private void Manager_MessageActivity(object sender, string msg)
+    private void Manager_MessageActivity(object sender, MessageActivityEventArgs args)
     {
       _count++;
       Dispatcher.Invoke(() =>
@@ -110,10 +108,29 @@ namespace FluffyKVM
         if (chkShowCount.IsChecked == true)
           lblCount.Text = _count.ToString();
 
-        if (chkShowMessages.IsChecked != true)
-          return;
+        bool showMessage = false;
+        switch (args.MessageType)
+        {
+          case MessageType.General:
+            showMessage = true;
+            break;
 
-        lstMessages.Items.Insert(0, msg);
+          case MessageType.KeyDown:
+          case MessageType.KeyUp:
+          case MessageType.LockKeySync:
+            showMessage = chkShowKbMessages.IsChecked == true;
+            break;
+
+          case MessageType.MouseMove:
+          case MessageType.MouseDown:
+          case MessageType.MouseUp:
+          case MessageType.MouseWheel:
+            showMessage = chkShowMouseMessages.IsChecked == true;
+            break;
+        }
+
+        if (showMessage)
+          lstMessages.Items.Insert(0, args.Message);
 
         if (lstMessages.Items.Count > 100)
           lstMessages.Items.RemoveAt(100);
@@ -128,7 +145,7 @@ namespace FluffyKVM
     private void ChkShowMessages_Checked(object sender, RoutedEventArgs e)
     {
       lstMessages.Items.Clear();
-      if (chkShowMessages.IsChecked == true)
+      if (chkShowKbMessages.IsChecked == true || chkShowMouseMessages.IsChecked == true)
       {
         lstMessages.Visibility = Visibility.Visible;
       }
@@ -143,12 +160,10 @@ namespace FluffyKVM
       lstMessages.Items.Clear();
       if (chkShowCount.IsChecked == true)
       {
-        _showCount = true;
         lblCount.Visibility = Visibility.Visible;
       }
       else
       {
-        _showCount = true;
         lblCount.Visibility = Visibility.Collapsed;
       }
     }
@@ -198,7 +213,8 @@ namespace FluffyKVM
     private void SaveConfig()
     {
       Properties.Settings.Default["protocol"] = GetProtocol().ToString();
-      Properties.Settings.Default["showMessages"] = chkShowMessages.IsChecked == true;
+      Properties.Settings.Default["showKeyboardMessages"] = chkShowKbMessages.IsChecked == true;
+      Properties.Settings.Default["showMouseMessages"] = chkShowMouseMessages.IsChecked == true;
       Properties.Settings.Default["showCount"] = chkShowCount.IsChecked == true;
       Properties.Settings.Default["serialPort"] = cmbSerialPort.SelectionBoxItem as string;
       Properties.Settings.Default["baudRate"] = cmbBaudRate.SelectionBoxItem as string;
@@ -232,7 +248,8 @@ namespace FluffyKVM
         }
       }
 
-      chkShowMessages.IsChecked = Properties.Settings.Default.showMessages;
+      chkShowKbMessages.IsChecked = Convert.ToBoolean(Properties.Settings.Default.showKeyboardMessages);
+      chkShowMouseMessages.IsChecked = Convert.ToBoolean(Properties.Settings.Default.showMouseMessages);
       chkShowCount.IsChecked = Properties.Settings.Default.showCount;
 
       var serialPortStr = Properties.Settings.Default.serialPort;

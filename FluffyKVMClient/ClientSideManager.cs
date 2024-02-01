@@ -10,7 +10,7 @@ namespace FluffyKVMClient
   {
     private IListener _listener;
     
-    public event EventHandler<string> MessageActivity;
+    public event EventHandler<MessageActivityEventArgs> MessageActivity;
 
     public void StartSerial(string port, int baudRate)
     {
@@ -21,7 +21,7 @@ namespace FluffyKVMClient
 
       _listener.MessageReceived += Listener_MessageReceived;
 
-      MessageActivity?.Invoke(this, "*START*");
+      MessageActivity?.Invoke(this, new MessageActivityEventArgs(MessageType.General, "*START*"));
     }
 
     public void StartNetwork(TransportProtocol protocol, IPAddress originIp, int port)
@@ -46,7 +46,7 @@ namespace FluffyKVMClient
 
       _listener.MessageReceived += Listener_MessageReceived;
 
-      MessageActivity?.Invoke(this, "*START*");
+      MessageActivity?.Invoke(this, new MessageActivityEventArgs(MessageType.General, "*START*"));
     }
 
     public void Stop()
@@ -54,15 +54,13 @@ namespace FluffyKVMClient
       _listener.MessageReceived -= Listener_MessageReceived;
       _listener.Dispose();
       _listener = null;
-      MessageActivity?.Invoke(this, "*STOP*");
+      MessageActivity?.Invoke(this, new MessageActivityEventArgs(MessageType.General, "*STOP*"));
     }
 
     private void Listener_MessageReceived(object sender, string e)
     {
-      MessageActivity?.Invoke(this, e);
-
       var split = e.Split('_');
-      var messageType = Enum.Parse(typeof(MessageType), split[0]);
+      var messageType = (MessageType)Enum.Parse(typeof(MessageType), split[0]);
 
       switch (messageType)
       {
@@ -88,10 +86,10 @@ namespace FluffyKVMClient
 
           InputSimulator.MoveMouse(xOffset, yOffset);
 
-         /* var position = Cursor.Position;
-          position.X += xOffset;
-          position.Y += yOffset;
-          MouseSimulator.Position = position;*/
+          /* var position = Cursor.Position;
+           position.X += xOffset;
+           position.Y += yOffset;
+           MouseSimulator.Position = position;*/
           break;
 
         case MessageType.MouseDown:
@@ -114,6 +112,7 @@ namespace FluffyKVMClient
 
           MouseSimulator.MouseWheel(mouseWheelDelta);
           break;
+
         case MessageType.LockKeySync:
           if (!int.TryParse(split[1], out var lockKeyStatesInt))
             return;
@@ -128,6 +127,8 @@ namespace FluffyKVMClient
         default:
           break;
       }
+
+      MessageActivity?.Invoke(this, new MessageActivityEventArgs(messageType, e));
     }
   }
 }

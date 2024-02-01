@@ -4,7 +4,7 @@ namespace FluffyKVM
 {
   public interface IManager
   {
-    event EventHandler<string> MessageActivity;
+    event EventHandler<MessageActivityEventArgs> MessageActivity;
 
     void Stop();
   }

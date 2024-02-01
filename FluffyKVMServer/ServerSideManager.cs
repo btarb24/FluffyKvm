@@ -15,7 +15,7 @@ namespace FluffyKVMServer
     private IBroadcaster _broadcaster;
     private Point? _lastPoint;
 
-    public event EventHandler<string> MessageActivity;
+    public event EventHandler<MessageActivityEventArgs> MessageActivity;
     //give a bailout key to give control of server back in case of exceptional situation
     private const Keys _toggleControl = Keys.RControlKey;
     private readonly Keys[] _lockKeys = new[] { Keys.CapsLock, Keys.NumLock, Keys.Scroll };
@@ -75,7 +75,7 @@ namespace FluffyKVMServer
 
       _lastPoint = null;
 
-      MessageActivity?.Invoke(this, "*STOP*");
+      MessageActivity?.Invoke(this, new MessageActivityEventArgs(MessageType.General, "*STOP*"));
     }
 
     private void Start()
@@ -83,7 +83,7 @@ namespace FluffyKVMServer
       _keyboardHook.Start();
       _mouseHook.Start();
 
-      MessageActivity?.Invoke(this, "*START*");
+      MessageActivity?.Invoke(this, new MessageActivityEventArgs(MessageType.General, "*START*"));
       SyncKeyLocks();
     }
 
@@ -169,7 +169,8 @@ namespace FluffyKVMServer
       var msgToSend = $"{(int)messageType}_{message}";
 
       _broadcaster.SendMessageToListener(msgToSend);
-      MessageActivity?.Invoke(this, msgToSend);
+
+      MessageActivity?.Invoke(this, new MessageActivityEventArgs(messageType, msgToSend));
     }
   }
 }

@@ -5,23 +5,26 @@
     <Setting Name="protocol" Type="System.String" Scope="User">
       <Value Profile="(Default)">USB</Value>
     </Setting>
-    <Setting Name="showMessages" Type="System.Boolean" Scope="User">
-      <Value Profile="(Default)">False</Value>
-    </Setting>
     <Setting Name="showCount" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
     <Setting Name="serialPort" Type="System.String" Scope="User">
       <Value Profile="(Default)" />
     </Setting>
-    <Setting Name="baudRate" Type="System.String" Scope="User">
-      <Value Profile="(Default)">115200</Value>
-    </Setting>
     <Setting Name="destinationIp" Type="System.String" Scope="User">
       <Value Profile="(Default)">192.168.1.52</Value>
     </Setting>
     <Setting Name="destinationPort" Type="System.String" Scope="User">
       <Value Profile="(Default)">15977</Value>
+    </Setting>
+    <Setting Name="showKeyboardMessages" Type="System.String" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="showMouseMessages" Type="System.String" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="baudRate" Type="System.String" Scope="User">
+      <Value Profile="(Default)">5000000</Value>
     </Setting>
   </Settings>
 </SettingsFile>

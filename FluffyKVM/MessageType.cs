@@ -2,6 +2,7 @@
 {
   public enum MessageType
   {
+    General = -1,
     KeyDown = 0,
     KeyUp = 1,
     MouseMove = 2,

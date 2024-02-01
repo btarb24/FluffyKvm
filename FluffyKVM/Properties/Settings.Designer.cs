@@ -38,18 +38,6 @@ namespace FluffyKVM.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("False")]
-        public bool showMessages {
-            get {
-                return ((bool)(this["showMessages"]));
-            }
-            set {
-                this["showMessages"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
         public bool showCount {
             get {
                 return ((bool)(this["showCount"]));
@@ -68,18 +56,6 @@ namespace FluffyKVM.Properties {
             }
             set {
                 this["serialPort"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("115200")]
-        public string baudRate {
-            get {
-                return ((string)(this["baudRate"]));
-            }
-            set {
-                this["baudRate"] = value;
             }
         }
         
@@ -104,6 +80,42 @@ namespace FluffyKVM.Properties {
             }
             set {
                 this["destinationPort"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public string showKeyboardMessages {
+            get {
+                return ((string)(this["showKeyboardMessages"]));
+            }
+            set {
+                this["showKeyboardMessages"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public string showMouseMessages {
+            get {
+                return ((string)(this["showMouseMessages"]));
+            }
+            set {
+                this["showMouseMessages"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("5000000")]
+        public string baudRate {
+            get {
+                return ((string)(this["baudRate"]));
+            }
+            set {
+                this["baudRate"] = value;
             }
         }
     }

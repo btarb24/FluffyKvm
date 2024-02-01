@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight">
-  <StackPanel Margin ="10">
-    <StackPanel x:Name="pnlSetup">
+  <DockPanel Margin ="10" LastChildFill="True">
+    <StackPanel x:Name="pnlSetup" DockPanel.Dock="Top">
       <StackPanel Orientation="Horizontal">
         <RadioButton x:Name="radUsb" IsChecked="True" Checked="chkSerial_Checked">USB</RadioButton>
         <RadioButton x:Name="radTcp" Margin="10,0,0,0" Checked="chkNetwork_Checked">TCP</RadioButton>
@@ -37,22 +37,23 @@
             <ComboBoxItem>57600</ComboBoxItem>
             <ComboBoxItem>115200</ComboBoxItem>
             <ComboBoxItem>1000000</ComboBoxItem>
-            <ComboBoxItem IsSelected="true">2000000</ComboBoxItem>
-            <ComboBoxItem>5000000</ComboBoxItem>
+            <ComboBoxItem>2000000</ComboBoxItem>
+            <ComboBoxItem IsSelected="true">5000000</ComboBoxItem>
           </ComboBox>
         </StackPanel>
       </StackPanel>
       <Button Margin="0,10,0,0" Click="BtnStart_Click">Start</Button>
     </StackPanel>
     
-    <StackPanel x:Name="pnlRunTime" Margin="0,10,0,0">
-      <Button x:Name="btnStop" Click="BtnStop_Click" IsEnabled="false">Stop</Button>
-      <StackPanel Orientation="Horizontal">
-        <CheckBox x:Name="chkShowMessages" Margin="0,10,0,0" Checked="ChkShowMessages_Checked" Unchecked="ChkShowMessages_Checked">Show Messages</CheckBox>
+    <DockPanel x:Name="pnlRunTime" Margin="0,10,0,0">
+      <Button x:Name="btnStop" DockPanel.Dock="Top" Click="BtnStop_Click" IsEnabled="false">Stop</Button>
+      <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">
+        <CheckBox x:Name="chkShowKbMessages" Margin="0,10,0,0" Checked="ChkShowMessages_Checked" Unchecked="ChkShowMessages_Checked">Show KB</CheckBox>
+        <CheckBox x:Name="chkShowMouseMessages" Margin="20,10,0,0" Checked="ChkShowMessages_Checked" Unchecked="ChkShowMessages_Checked">Show Mouse</CheckBox>
         <CheckBox x:Name="chkShowCount" Margin="20,10,0,0" Checked="ChkShowCount_Checked" Unchecked="ChkShowCount_Checked">Show Count: </CheckBox>
         <TextBlock x:Name="lblCount"/>
       </StackPanel>
       <ListBox x:Name="lstMessages" Height="400" Margin="0,10,0,0" Visibility="Collapsed"/>
-    </StackPanel>
-  </StackPanel>
+    </DockPanel>
+  </DockPanel>
 </Window>
