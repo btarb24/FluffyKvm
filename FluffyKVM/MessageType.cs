@@ -9,6 +9,7 @@
     MouseDown = 3,
     MouseUp = 4,
     MouseWheel = 5,
-    LockKeySync = 6
+    LockKeySync = 6,
+    StateChange = 7
   }
 }

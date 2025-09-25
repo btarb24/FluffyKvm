@@ -26,13 +26,25 @@ namespace FluffyKVMServer
     {
       _keyboardHook.KeyDown += KeyboardHook_KeyDown;
       _keyboardHook.KeyUp += KeyboardHook_KeyUp;
-      _keyboardHook.ReportingPaused += (s, a) => _mouseHook.Enabled = false;
-      _keyboardHook.ReportingResumed += (s, a) => _mouseHook.Enabled = true;
+      _keyboardHook.ReportingPaused += KeyboardHook_ReportingPaused;
+      _keyboardHook.ReportingResumed += KeyboardHook_ReportingResumed;
 
       _mouseHook.MouseMove += MouseHook_MouseMove;
       _mouseHook.MouseDown += MouseHook_MouseDown;
       _mouseHook.MouseUp += MouseHook_MouseUp;
       _mouseHook.MouseWheel += MouseHook_MouseWheel;
+    }
+
+    private void KeyboardHook_ReportingResumed(object sender, EventArgs e)
+    {
+      _mouseHook.Enabled = true;
+      SendMessage(MessageType.StateChange, "1");
+    }
+
+    private void KeyboardHook_ReportingPaused(object sender, EventArgs e)
+    {
+      _mouseHook.Enabled = false;
+      SendMessage(MessageType.StateChange, "0");
     }
 
     public void SetModiferMode(ModifierKeySendMode mode)
