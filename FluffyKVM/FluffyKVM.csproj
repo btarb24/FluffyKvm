@@ -53,6 +53,7 @@
   <ItemGroup>
     <Compile Include="IManager.cs" />
     <Compile Include="InputSimulator.cs" />
+    <Compile Include="LaunchMode.cs" />
     <Compile Include="LockKeyStates.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

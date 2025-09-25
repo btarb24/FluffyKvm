@@ -15,11 +15,14 @@ namespace FluffyKVM
     public event EventHandler<StartSerialEventArgs> StartSerialRequested;
     public event EventHandler<StartNetworkEventArgs> StartNetworkRequested;
 
-    public MainWindow(string title)
+    public MainWindow(LaunchMode launchMode)
     {
       InitializeComponent();
 
-      Title = title;
+      Title = launchMode == LaunchMode.Server ? "Fluffy KVM Server" : "Fluffy KVM Client";
+
+      if (launchMode == LaunchMode.Client)
+        pnlServerConfigs.Visibility = Visibility.Collapsed;
 
       PopulatePorts();
       LoadConfig();

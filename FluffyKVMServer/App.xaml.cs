@@ -10,7 +10,7 @@ namespace FluffyKVMServer
     {
       base.OnStartup(e);
 
-      var window = new MainWindow("Fluffy KVM Server");
+      var window = new MainWindow(LaunchMode.Server);
       window.StartSerialRequested += Window_StartSerialRequested;
       window.StartNetworkRequested += Window_StartNetworkRequested;
       window.ShowDialog();
