@@ -14,11 +14,13 @@ namespace FluffyKVMServer
     private readonly KeyboardHook _keyboardHook = new KeyboardHook();
     private IBroadcaster _broadcaster;
     private Point? _lastPoint;
+    private ModifierKeySendMode _modiferMode;
 
     public event EventHandler<MessageActivityEventArgs> MessageActivity;
     //give a bailout key to give control of server back in case of exceptional situation
     private const Keys _toggleControl = Keys.RControlKey;
     private readonly Keys[] _lockKeys = new[] { Keys.CapsLock, Keys.NumLock, Keys.Scroll };
+    private readonly Keys[] _modifierKeys = new[] { Keys.Shift, Keys.Control, Keys.LWin, Keys.RWin };
 
     public ServerSideManager()
     {
@@ -31,6 +33,16 @@ namespace FluffyKVMServer
       _mouseHook.MouseDown += MouseHook_MouseDown;
       _mouseHook.MouseUp += MouseHook_MouseUp;
       _mouseHook.MouseWheel += MouseHook_MouseWheel;
+    }
+
+    public void SetModiferMode(ModifierKeySendMode mode)
+    {
+      _modiferMode = mode;
+    }
+
+    public void SetRepeatedModifierSuppression(bool suppress)
+    {
+      _keyboardHook.SetRepeatedModifierSuppression(suppress);
     }
 
     public void StartSerial(string port, int baudRate)
@@ -53,10 +65,12 @@ namespace FluffyKVMServer
         case TransportProtocol.TCP:
           _broadcaster = new TcpBroadcaster(destinationIp, port);
           break;
+
         case TransportProtocol.PCap:
         case TransportProtocol.UDP:
           _broadcaster = new UdpBroadcaster(destinationIp, port);
           break;
+
         default:
           throw new NotSupportedException();
       }
@@ -95,6 +109,10 @@ namespace FluffyKVMServer
         return;
 
       e.Handled = true;
+
+      if (_modiferMode == ModifierKeySendMode.AsAnnotations && _modifierKeys.Contains(e.KeyCode))
+        return;
+
       SendMessage(MessageType.KeyDown, $"{(int)e.KeyCode}");
     }
 
@@ -107,6 +125,9 @@ namespace FluffyKVMServer
         SyncKeyLocks();
         return;
       }
+
+      if (_modiferMode == ModifierKeySendMode.AsAnnotations && _modifierKeys.Contains(e.KeyCode))
+        return;
 
       SendMessage(MessageType.KeyUp, $"{(int)e.KeyCode}");
       e.Handled = true;

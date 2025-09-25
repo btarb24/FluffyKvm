@@ -60,6 +60,7 @@
     </Compile>
     <Compile Include="MessageActivityEventArgs.cs" />
     <Compile Include="MessageType.cs" />
+    <Compile Include="ModifierKeySendMode.cs" />
     <Compile Include="NativeMethods.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">

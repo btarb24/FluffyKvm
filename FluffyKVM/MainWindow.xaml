@@ -6,6 +6,14 @@
         mc:Ignorable="d"
         SizeToContent="WidthAndHeight">
   <DockPanel Margin ="10" LastChildFill="True">
+    <StackPanel x:Name="pnlServerConfigs" DockPanel.Dock="Top" Margin="0,0,0,10">
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Modifier key send mode:"/>
+        <RadioButton x:Name="radModifierSeparate" Content="Separate" VerticalAlignment="Center" Margin="10,2,0,0" IsChecked="True" Checked="RadModifier_CheckChanged" Unchecked="RadModifier_CheckChanged"/>
+        <RadioButton x:Name="radModifierAnnotate" Content="As annotations" Margin="10,2,0,0" Checked="RadModifier_CheckChanged" Unchecked="RadModifier_CheckChanged"/>
+      </StackPanel>
+      <CheckBox x:Name="chkSuppressRepeatedModifiers" Content="Suppress repeated modifiers" Margin="0,5,0,0" IsChecked="True" Checked="ChkSuppressRepeatedModifiers_CheckChanged" Unchecked="ChkSuppressRepeatedModifiers_CheckChanged"/>
+    </StackPanel>
     <StackPanel x:Name="pnlSetup" DockPanel.Dock="Top">
       <StackPanel Orientation="Horizontal">
         <RadioButton x:Name="radUsb" IsChecked="True" Checked="chkSerial_Checked">USB</RadioButton>
@@ -44,7 +52,6 @@
       </StackPanel>
       <Button Margin="0,10,0,0" Click="BtnStart_Click">Start</Button>
     </StackPanel>
-    
     <DockPanel x:Name="pnlRunTime" Margin="0,10,0,0" LastChildFill="True">
       <Button x:Name="btnStop" DockPanel.Dock="Top" Click="BtnStop_Click" IsEnabled="false">Stop</Button>
       <StackPanel Orientation="Horizontal" DockPanel.Dock="Top">

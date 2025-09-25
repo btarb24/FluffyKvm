@@ -14,6 +14,8 @@ namespace FluffyKVM
 
     public event EventHandler<StartSerialEventArgs> StartSerialRequested;
     public event EventHandler<StartNetworkEventArgs> StartNetworkRequested;
+    public event EventHandler<ModifierKeySendMode> ModiferKeySendModeUpdated;
+    public event EventHandler<bool> SuppressRepeatedModifiersUpdated;
 
     public MainWindow(LaunchMode launchMode)
     {
@@ -307,6 +309,17 @@ namespace FluffyKVM
 
       txtDestinationAddress.Text = Properties.Settings.Default.destinationIp;
       txtDestinationPort.Text = Properties.Settings.Default.destinationPort;
+    }
+
+    private void RadModifier_CheckChanged(object sender, RoutedEventArgs e)
+    {
+      var mode = radModifierSeparate.IsChecked == true ? ModifierKeySendMode.Separate : ModifierKeySendMode.AsAnnotations;
+      ModiferKeySendModeUpdated?.Invoke(this, mode);
+    }
+
+    private void ChkSuppressRepeatedModifiers_CheckChanged(object sender, RoutedEventArgs e)
+    {
+      SuppressRepeatedModifiersUpdated?.Invoke(this, chkSuppressRepeatedModifiers.IsChecked == true);
     }
   }
 }
