@@ -191,17 +191,18 @@ int vkToHid(int vk) {
     case VK_DIVIDE:  return KEYPAD_SLASH;
 
     // Controls
-    case VK_RETURN: return KEY_ENTER;
-    case VK_SPACE:  return KEY_SPACE;
-    case VK_BACK:   return KEY_BACKSPACE;
-    case VK_TAB:    return KEY_TAB;
-    case VK_ESCAPE: return KEY_ESC;
-    case VK_DELETE: return KEY_DELETE;
-    case VK_INSERT: return KEY_INSERT;
-    case VK_HOME:   return KEY_HOME;
-    case VK_END:    return KEY_END;
-    case VK_PRIOR:  return KEY_PAGE_UP;
-    case VK_NEXT:   return KEY_PAGE_DOWN;
+    case VK_RETURN:   return KEY_ENTER;
+    case VK_SPACE:    return KEY_SPACE;
+    case VK_BACK:     return KEY_BACKSPACE;
+    case VK_TAB:      return KEY_TAB;
+    case VK_ESCAPE:   return KEY_ESC;
+    case VK_DELETE:   return KEY_DELETE;
+    case VK_INSERT:   return KEY_INSERT;
+    case VK_HOME:     return KEY_HOME;
+    case VK_END:      return KEY_END;
+    case VK_PRIOR:    return KEY_PAGE_UP;
+    case VK_NEXT:     return KEY_PAGE_DOWN;
+    case VK_SNAPSHOT: return KEY_PRINTSCREEN;
 
     // Arrows
     case VK_LEFT: return KEY_LEFT;
